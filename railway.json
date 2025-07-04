@@ -1,0 +1,16 @@
+{
+  "services": [
+    {
+      "name": "main-service",
+      "sourceDir": ".",
+      "startCommand": "python main.py",
+      "envVars": {}
+    },
+    {
+      "name": "second-service",
+      "sourceDir": ".",
+      "startCommand": "python second.py",
+      "envVars": {}
+    }
+  ]
+}
