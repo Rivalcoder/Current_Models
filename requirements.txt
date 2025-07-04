@@ -1,4 +1,4 @@
 fastapi
 uvicorn
-pymongo      ✅ KEEP THIS
+pymongo
 pathway
