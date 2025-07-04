@@ -1,6 +1,6 @@
 from pymongo import MongoClient
 from bson import ObjectId
-from datetime import datetime, timezone
+from datetime import datetime
 import json
 import time
 import os
@@ -16,17 +16,16 @@ def clean(doc):
         if isinstance(v, ObjectId):
             doc[k] = str(v)
         elif isinstance(v, datetime):
-            doc[k]=v.isoformat()
-            # doc[k] = v.astimezone(timezone.utc).replace(microsecond=0).strftime("%Y-%m-%dT%H:%M:%SZ")
-        
+            doc[k] = v.isoformat()
     return doc
 
-while True:
-    docs = list(collection.find())
-    fname = f"{EXPORT_DIR}/products.jsonl"
-    with open(fname, "w") as f:
-        for doc in docs:
-            doc = clean(doc)
-            f.write(json.dumps(doc) + "\n")
-    print("[Mongo Exporter] Wrote updated products.jsonl")
-    time.sleep(5)
+def export_loop():
+    while True:
+        docs = list(collection.find())
+        fname = f"{EXPORT_DIR}/products.jsonl"
+        with open(fname, "w") as f:
+            for doc in docs:
+                doc = clean(doc)
+                f.write(json.dumps(doc) + "\n")
+        print("[Mongo Exporter] Wrote updated products.jsonl")
+        time.sleep(5)
